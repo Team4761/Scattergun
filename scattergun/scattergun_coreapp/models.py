@@ -11,7 +11,7 @@ functionality_choices = (
 
 class Team(models.Model):
 	name = models.CharField(max_length=100)
-	number = models.IntegerField()
+	number = models.IntegerField(primary_key=True)
 	things_driveteam_can_do_well = models.TextField(blank=True, null=True)
 	drive_team_personality_compatibility = models.IntegerField(choices=functionality_choices, blank=True, null=True)
 	robot_height_in_inches = models.IntegerField(blank=True, null=True)
@@ -56,3 +56,7 @@ class RoundReport(models.Model):
 	
 	# Drive team ratings
 	driveteam_maneuvering_skill = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+
+class Competition(models.Model):
+	date = models.DateField()
+	name = models.CharField(max_length=100)
