@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block "body" %}
+Team #{{ team.number }} ({{ team.name }}) <em>(<a href="https://www.thebluealliance.com/team/{{ team.number }}" target="_blank">The Blue Alliance</a>)</em>
+<hr />
+
+<div class="twelve columns">
+    <table>
+        <thead>
+        <tr>
+            <th>Key</th>
+            <th>Data</th>
+        </tr>
+        </thead>
+        <tr>
+            <td>Things Drive Team Can Do Well</td>
+            <td>{{ team.things_driveteam_can_do_well }}</td>
+        </tr>
+        <tr>
+            <td>Drive Team Personality Compatibility</td>
+            <td>{{ team.drive_team_personality_compatibility }}</td>
+        </tr>
+        <tr>
+            <td>Robot Height in Inches</td>
+            <td>{{ team.robot_height_in_inches }}</td>
+        </tr>
+    </table>
+</div>
+
+{% endblock %}

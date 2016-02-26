@@ -20,5 +20,5 @@ import scattergun_coreapp.urls as scattergun
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^/', include(scattergun)),
+    url(r'^scattergun/', include(scattergun)),
 ]
