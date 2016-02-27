@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block "body" %}
 <div class="twelve columns">
+<em><a href="{% url 'scattergun-team-add' %}">Add a new team</a></em>
 <table>
     <thead>
         <tr>
@@ -11,7 +12,7 @@
 {% for team in teams %}
 
     <tr>
-        <td><a href="/scattergun/teams/{{ team.number }}">{{ team.number }}</a></td>
+        <td><a href="{% url 'scattergun-team-show' team_number=team.number %}">{{ team.number }}</a></td>
         <td>{{ team.name }}</td>
     </tr>
 {% endfor %}
