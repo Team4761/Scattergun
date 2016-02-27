@@ -12,5 +12,5 @@ script:
 - cd scattergun && python3 manage.py test
 
 matrix:
-  allowed_failures:
+  allow_failures:
     - python: nightly
