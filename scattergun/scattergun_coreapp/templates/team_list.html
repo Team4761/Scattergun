@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block "body" %}
+<div class="twelve columns">
+<table>
+    <thead>
+        <tr>
+            <th>Number</th>
+            <th>Name</th>
+        </tr>
+    </thead>
+{% for team in teams %}
+
+    <tr>
+        <td><a href="/scattergun/teams/{{ team.number }}">{{ team.number }}</a></td>
+        <td>{{ team.name }}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
