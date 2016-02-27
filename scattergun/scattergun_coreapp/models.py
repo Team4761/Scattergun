@@ -15,6 +15,13 @@ class Team(models.Model):
 	things_driveteam_can_do_well = models.TextField(blank=True, null=True)
 	drive_team_personality_compatibility = models.IntegerField(choices=functionality_choices, blank=True, null=True)
 	robot_height_in_inches = models.IntegerField(blank=True, null=True)
+	
+	def __str__(self):
+		return self.name
+		
+	def lowbar_compatability(self):
+		if not self.robot_height_in_inches is None:
+			return self.robot_height_in_inches < 16
 
 class RoundReport(models.Model):
 	team = models.ForeignKey(Team)
