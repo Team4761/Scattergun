@@ -16,6 +16,9 @@ class Team(models.Model):
 	drive_team_personality_compatibility = models.IntegerField(choices=functionality_choices, blank=True, null=True)
 	robot_height_in_inches = models.IntegerField(blank=True, null=True)
 
+	def __str__(self):
+		return self.name
+
 class RoundReport(models.Model):
 	team = models.ForeignKey(Team)
 	

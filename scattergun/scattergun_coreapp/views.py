@@ -3,6 +3,10 @@ from .forms import TeamForm
 from .models import Team
 
 
+def index_view(request):
+    return render(request, "index.html")
+
+
 def team_list_view(request):
     teams = Team.objects.all()
     return render(request, "team_list.html", context={"teams": teams})
