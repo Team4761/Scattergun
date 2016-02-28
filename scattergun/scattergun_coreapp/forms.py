@@ -1,7 +1,7 @@
 from django.forms import ModelForm
 from .models import Team, RoundReport
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Fieldset
+from crispy_forms.layout import Layout, Submit
 from crispy_forms.bootstrap import FormActions, TabHolder, Tab
 
 

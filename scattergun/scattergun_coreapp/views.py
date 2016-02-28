@@ -11,7 +11,7 @@ def roundreport_add_view(request):
     if request.method == "POST":
         form = RoundReportForm(request.POST)
         if form.is_valid():
-            team = form.save()
+            form.save()
             return redirect('scattergun-roundreport-list')
     else:
         form = RoundReportForm()
