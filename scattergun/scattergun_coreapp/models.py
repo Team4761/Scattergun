@@ -17,7 +17,7 @@ class Team(models.Model):
 	robot_height_in_inches = models.IntegerField(blank=True, null=True)
 
 	def __str__(self):
-		return self.name
+		return "#{} - {}".format(self.number, self.name)
 
 class RoundReport(models.Model):
 	team = models.ForeignKey(Team)

@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block "body" %}
+Add a new round report to the database:
+<form method="POST">{% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <button type="submit">Save</button>
+</form>
+{% endblock %}
