@@ -12,10 +12,10 @@ def roundreport_add_view(request):
         form = RoundReportForm(request.POST)
         if form.is_valid():
             team = form.save()
-            return redirect('scattergun-index')
+            return redirect('scattergun-roundreport-list')
     else:
         form = RoundReportForm()
-    return render(request, "team_add.html", context={"form": form})
+    return render(request, "roundreport_add.html", context={"form": form})
 
 
 def roundreport_list_view(request):
