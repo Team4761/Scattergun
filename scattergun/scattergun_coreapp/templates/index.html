@@ -1,28 +1,28 @@
 {% extends "base.html" %}
 {% block "body" %}
-<div class="row">
-    <div class="twelve columns">
-    Scattergun is a scouting platform.
-    </div>
+<div class="jumbotron">
+  <h1>Scattergun</h1>
+  <p>A new and exciting scouting platform from FRC Team 4761!</p>
+  <p><a class="btn btn-primary btn-lg" href="{% url 'scattergun-roundreport-add' %}" role="button">Let's go!</a></p>
 </div>
 <hr />
 <div class="row">
-    <div class="four columns">
-        <h5>Team Management</h5>
+    <div class="col-md-4">
+        <h3>Team Management</h3>
         <ul>
             <li><a href="{% url 'scattergun-team-list' %}">List of teams in the database</a></li>
             <li><a href="{% url 'scattergun-team-add' %}">Add a new team to the database</a></li>
         </ul>
     </div>
-    <div class="four columns">
-        <h5>Report Management</h5>
+    <div class="col-md-4">
+        <h3>Report Management</h3>
         <ul>
             <li><a href="{% url 'scattergun-roundreport-list' %}">List of reports in the database</a></li>
             <li><a href="{% url 'scattergun-roundreport-add' %}">Add a new report to the database</a></li>
         </ul>
     </div>
-    <div class="four columns">
-        <h5>User Management</h5>
+    <div class="col-md-4">
+        <h3>User Management</h3>
         <ul>
             <li>List of users in the database</li>
             <li>Add a new use to the database                                </li>
@@ -31,6 +31,8 @@
 </div>
 <hr />
 <div class="row">
+    <div class="col-md-12">
     Currently tracking:
+    </div>
 </div>
 {% endblock %}

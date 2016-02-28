@@ -41,4 +41,5 @@ def team_add_view(request):
 
 def team_view(request, team_number):
     team = get_object_or_404(Team, number=team_number)
-    return render(request, "team.html", context={"team": team})
+    reports = RoundReport.objects.filter(team=team)
+    return render(request, "team.html", context={"team": team, "reports": reports})
