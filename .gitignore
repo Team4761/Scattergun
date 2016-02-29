@@ -124,4 +124,4 @@ crashlytics-build.properties
 fabric.properties
 
 ## Bower stuff.
-scattergun/scattergun/static/bower_components
+scattergun/scattergun_coreapp/static/

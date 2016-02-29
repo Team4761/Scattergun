@@ -7,5 +7,5 @@ test:
 runserver:
 	cd scattergun && ./manage.py runserver
 
-bootstrap:
-	cd scattergun/scattergun/static && bower install bootstrap
+bootstrap: 
+	cd scattergun/scattergun_coreapp/static && bower install bootstrap

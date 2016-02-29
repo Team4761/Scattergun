@@ -1,6 +1,7 @@
 <head>
     <title>Scattergun</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+    {% load staticfiles %}
+    <link href="{% static "bower_components/bootstrap/dist/css/bootstrap.min.css" %}" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     {% include "navbar.html" %}
@@ -9,5 +10,5 @@
     {% endblock %}
     </div>
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="{% static "bower_components/jquery/dist/jquery.min.js" %}"></script>
+<script src="{% static "bower_components/bootstrap/dist/js/bootstrap.min.js" %}"></script>
