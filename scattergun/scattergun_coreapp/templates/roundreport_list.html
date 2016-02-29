@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block "body" %}
+<div class="col-md-12">
+<em><a href="{% url 'scattergun-roundreport-add' %}">Add a new round report</a></em>
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Team</th>
+            <th>Friendly Alliance Score</th>
+            <th>Enemy Alliance Score</th>
+            <th>Friendly Alliance RP</th>
+            <th>Enemy Alliance RP</th>
+        </tr>
+    </thead>
+{% for report in reports %}
+    <tr>
+        <td><a href="{% url 'scattergun-index' %}">{{ report.team }}</a></td>
+        <td>{{ report.friendly_alliance_score }}</td>
+        <td>{{ report.enemy_alliance_score }}</td>
+        <td>{{ report.friendly_alliance_rank_points }}</td>
+        <td>{{ report.enemy_alliance_rank_points }}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}
