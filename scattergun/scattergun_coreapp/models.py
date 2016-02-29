@@ -10,7 +10,7 @@ functionality_choices = (
 )
 
 
-class Team(models.Model):			
+class Team(models.Model):
     name = models.CharField(max_length=100)
     number = models.IntegerField(primary_key=True)
     things_driveteam_can_do_well = models.TextField(blank=True, null=True)
@@ -20,10 +20,11 @@ class Team(models.Model):
     def __str__(self):
         return "#{} - {}".format(self.number, self.name)
 
-	def lowbar_compatability(self):
-	if not self.robot_height_in_inches is None:
-		return self.robot_height_in_inches < 16
-		
+    def lowbar_compatibility(self):
+        if self.robot_height_in_inches is not None:
+            return self.robot_height_in_inches < 16
+
+
 class RoundReport(models.Model):
     team = models.ForeignKey(Team)
 
@@ -64,6 +65,7 @@ class RoundReport(models.Model):
 
     # Drive team ratings
     driveteam_maneuvering_skill = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+
 
 class Competition(models.Model):
     date = models.DateField()
