@@ -125,3 +125,6 @@ fabric.properties
 
 ## Bower stuff.
 scattergun/scattergun_coreapp/static/
+
+## Static file stuff.
+scattergun/scattergun/static/
