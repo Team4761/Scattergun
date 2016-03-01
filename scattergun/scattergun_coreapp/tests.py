@@ -6,16 +6,24 @@ from .models import Team, RoundReport
 class TeamTestCase(TestCase):
     def setUp(self):
         Team.objects.create(name="Test Team 1", number=1)
+        self.test_team_1 = Team.objects.get(number=1)
 
     def test_team_created_correctly(self):
-        test_team_1 = Team.objects.get(number=1)
-        self.assertEqual(test_team_1.name, "Test Team 1")
-        self.assertEqual(test_team_1.number, 1)
+        self.test_team_1 = Team.objects.get(number=1)
+        self.assertEqual(self.test_team_1.name, "Test Team 1")
+        self.assertEqual(self.test_team_1.number, 1)
+
+    def test_get_average_score(self):
+        scores = (3, 4, 5, 7)
+        for score in scores:
+            r = RoundReport(team=self.test_team_1, friendly_alliance_score=score)
+            r.save()
+        self.assertEqual(self.test_team_1.get_average_score(), 4.75)
 
 
 class TeamViewTestCase(TestCase):
     def setUp(self):
-        self.views = ('scattergun-team-add', 'scattergun-team-list')
+        self.views = ('scattergun-team-add', 'scattergun-team-list', 'scattergun-avg-score-leaderboard')
         self.client = Client()
 
     def test_team_views(self):

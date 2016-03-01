@@ -17,6 +17,13 @@ class Team(models.Model):
     drive_team_personality_compatibility = models.IntegerField(choices=functionality_choices, blank=True, null=True)
     robot_height_in_inches = models.IntegerField(blank=True, null=True)
 
+    def get_average_score(self):
+        team_reports = RoundReport.objects.filter(team=self)
+        friendly_scores = [report.friendly_alliance_score for report in team_reports]
+        if len(friendly_scores) == 0:
+            return 0
+        return sum(friendly_scores)/float(len(friendly_scores))
+
     def __str__(self):
         return "#{} - {}".format(self.number, self.name)
 
