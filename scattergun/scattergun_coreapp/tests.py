@@ -1,6 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.test import Client, TestCase
-from .models import Team, RoundReport
+from .models import Team, RoundReport, Match, Competition
+import datetime
 
 
 class TeamTestCase(TestCase):
@@ -27,11 +28,14 @@ class TeamViewTestCase(TestCase):
 class RoundReportTestCase(TestCase):
     def setUp(self):
         Team.objects.create(name="Test Team 1", number=1)
+        competition = Competition.objects.create(name="Who cares?",date=datetime.datetime.now())
+        Match.objects.create(number=1, competition = competition)
 
     def test_report_created_with_only_team(self):
         # You should be able to create a round report with ONLY a team
         test_team_1 = Team.objects.get(number=1)
-        r = RoundReport(team=test_team_1)
+        match = Match.objects.get(number=1) # The competition is irrelevant.
+        r = RoundReport(team=test_team_1,match=match)
         r.save()
 
 
