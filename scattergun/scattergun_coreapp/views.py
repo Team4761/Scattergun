@@ -7,6 +7,12 @@ def index_view(request):
     return render(request, "index.html")
 
 
+def avg_score_leaderboard_view(request):
+    teams = Team.objects.all()
+    sort = sorted(teams, key=lambda team: -team.get_average_score())
+    return render(request, "leaderboard.html", context={"teams": sort})
+
+
 def roundreport_add_view(request):
     if request.method == "POST":
         form = RoundReportForm(request.POST)
