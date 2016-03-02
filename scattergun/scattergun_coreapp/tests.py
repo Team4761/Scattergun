@@ -17,7 +17,11 @@ class TeamTestCase(TestCase):
     def test_get_average_score(self):
         scores = (3, 4, 5, 7)
         for score in scores:
-            r = RoundReport(team=self.test_team_1, friendly_alliance_score=score)
+            competition = Competition(name="Who cares?",date=datetime.datetime.now())
+            competition.save()
+            match = Match(competition=competition,number=1)
+            match.save()
+            r = RoundReport(team=self.test_team_1, friendly_alliance_score=score, match=match)
             r.save()
         self.assertEqual(self.test_team_1.get_average_score(), 4.75)
 
@@ -49,7 +53,7 @@ class RoundReportTestCase(TestCase):
 
 class RoundReportViewTestCase(TestCase):
     def setUp(self):
-        self.views = ('scattergun-roundreport-add', 'scattergun-roundreport-list')
+        self.views = ("""'scattergun-roundreport-add'""", 'scattergun-roundreport-list')
         self.client = Client()
 
     def test_roundreport_views(self):

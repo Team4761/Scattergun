@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import TeamForm, RoundReportForm
+from .forms import TeamForm, RoundReportForm, CompetitionSelectForm
 from .models import Team, RoundReport
 
 
@@ -13,14 +13,24 @@ def avg_score_leaderboard_view(request):
     return render(request, "leaderboard.html", context={"teams": sort})
 
 
+def competition_select_view(request):
+    if request.method == "POST":
+        form = CompetitionSelectForm(request.POST)
+        if form.is_valid():
+            request.session["competition"] = form.cleaned_data["competition"]
+            return redirect('scattergun-roundreport-add')
+    else:
+        form = CompetitionSelectForm()
+    return render(request, "competition_select.html", context={"form": form})
+
 def roundreport_add_view(request):
     if request.method == "POST":
-        form = RoundReportForm(request.POST)
+        form = RoundReportForm(None, request.POST)
         if form.is_valid():
             form.save()
             return redirect('scattergun-roundreport-list')
     else:
-        form = RoundReportForm()
+        form = RoundReportForm(request.session.get("competition"))
     return render(request, "roundreport_add.html", context={"form": form})
 
 
