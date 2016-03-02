@@ -71,8 +71,8 @@ class Match(models.Model):
         return total_score/total_reports
         
 class RoundReport(models.Model):
-    team = models.ForeignKey(Team, null=True)
-    match = models.ForeignKey(Match, null=True)
+    team = models.ForeignKey(Team)
+    match = models.ForeignKey(Match)
 
     # Round information
     friendly_alliance_score = models.IntegerField(default=0)
