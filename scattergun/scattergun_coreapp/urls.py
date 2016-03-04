@@ -3,6 +3,7 @@ from . import views
 
 urlpatterns = [
     url(r'leaderboard', views.avg_score_leaderboard_view, name="scattergun-avg-score-leaderboard"),
+    url(r'competition/select', views.competition_select_view, name="scattergun-competition-select"),
     url(r'roundreports/add', views.roundreport_add_view, name='scattergun-roundreport-add'),
     url(r'roundreports', views.roundreport_list_view, name='scattergun-roundreport-list'),
     url(r'teams/add', views.team_add_view, name='scattergun-team-add'),
