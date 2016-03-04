@@ -53,7 +53,7 @@ def team_add_view(request):
             return redirect('scattergun-team-show', team_number=team.number)
     else:
         form = TeamForm()
-    return render(request, "team_add.html", context={"form": form})
+    return render(request, "simple_add_form_base.html", context={"form": form, "thing": "team"})
 
 
 def team_view(request, team_number):
