@@ -71,3 +71,14 @@ class LeaderBoardViewTestCase(TestCase):
         for view in self.views:
             response = self.client.get(reverse(view))
             self.assertEqual(response.status_code, 200)
+
+
+class MatchViewTestCase(TestCase):
+    def setUp(self):
+        self.views = ['scattergun-match-add']
+        self.client = Client()
+
+    def test_leaderboard_views(self):
+        for view in self.views:
+            response = self.client.get(reverse(view))
+            self.assertEqual(response.status_code, 200)

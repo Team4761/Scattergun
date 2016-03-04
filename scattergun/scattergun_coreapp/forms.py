@@ -11,6 +11,12 @@ class TeamForm(ModelForm):
         exclude = ()
 
 
+class MatchForm(ModelForm):
+    class Meta:
+        model = Match
+        exclude = ()
+
+
 class CompetitionSelectForm(Form):
     competition = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="name")
 
