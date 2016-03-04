@@ -12,7 +12,7 @@ class RoundReportAdmin(admin.ModelAdmin):
 
 class CompetitionAdmin(admin.ModelAdmin):
     list_display = ('date', 'name')
-    
+
 
 class MatchAdmin(admin.ModelAdmin):
     list_display = ('competition', 'number')

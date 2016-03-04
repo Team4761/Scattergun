@@ -12,16 +12,15 @@ class TeamForm(ModelForm):
 
 
 class CompetitionSelectForm(Form):
-    competition = ModelChoiceField(queryset = Competition.objects.all(), to_field_name = "name")
-    
+    competition = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="name")
+
     def __init__(self, *args, **kwargs):
         super(CompetitionSelectForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        self.helper.layout= Layout(
+        self.helper.layout = Layout(
             Fieldset(
                 "Current Competition",
                 "competition"
-                
             ),
             FormActions(
                 Submit('select', 'Select'),
@@ -30,8 +29,8 @@ class CompetitionSelectForm(Form):
 
 
 class RoundReportForm(ModelForm):
-    match = ModelChoiceField(queryset = Competition.objects.all(), to_field_name="number")
-    
+    match = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="number")
+
     def __init__(self, competition, *args, **kwargs):
         super(RoundReportForm, self).__init__(*args, **kwargs)
         if competition:

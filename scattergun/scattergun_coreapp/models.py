@@ -22,30 +22,32 @@ class Team(models.Model):
         friendly_scores = [report.friendly_alliance_score for report in team_reports]
         if len(friendly_scores) == 0:
             return 0
-        return sum(friendly_scores)/float(len(friendly_scores))
-
-    def __str__(self):
-        return "#{} - {}".format(self.number, self.name)
+        return sum(friendly_scores) / float(len(friendly_scores))
 
     def lowbar_compatibility(self):
         if self.robot_height_in_inches is not None:
             return self.robot_height_in_inches < 16
-        
+
+    def __str__(self):
+        return "#{} - {}".format(self.number, self.name)
+
+
 class Competition(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=100)
+
 
 class Match(models.Model):
     number = models.IntegerField()
     competition = models.ForeignKey(Competition)
     blue_team = models.ManyToManyField(Team, related_name="red")
     red_team = models.ManyToManyField(Team, related_name="blue")
-    
+
     def get_red_score(self):
         total_score = 0
         total_reports = 0
-        for team in red_team.all():
-            report = RoundReports.objects.all().filter(match=self, team=team)[1]
+        for team in self.red_team.all():
+            report = RoundReport.objects.all().filter(match=self, team=team)[1]
             total_score += report.friendly_alliance_score
             total_reports += 1
         return total_score/total_reports
@@ -53,8 +55,8 @@ class Match(models.Model):
     def get_blue_score(self):
         total_score = 0
         total_reports = 0
-        for team in blue_team.all():
-            report = RoundReports.objects.all().filter(match=self, team=team)[1]
+        for team in self.blue_team.all():
+            report = RoundReport.objects.all().filter(match=self, team=team)[1]
             total_score += report.friendly_alliance_score
             total_reports += 1
         return total_score/total_reports
@@ -62,8 +64,8 @@ class Match(models.Model):
     def get_red_rank(self):
         total_score = 0
         total_reports = 0
-        for team in red_team.all():
-            report = RoundReports.objects.all().filter(match=self, team=team)[1]
+        for team in self.red_team.all():
+            report = RoundReport.objects.all().filter(match=self, team=team)[1]
             total_score += report.friendly_alliance_rank_points
             total_reports += 1
         return total_score/total_reports
@@ -71,12 +73,13 @@ class Match(models.Model):
     def get_blue_rank(self):
         total_score = 0
         total_reports = 0
-        for team in blue_team.all():
-            report = RoundReports.objects.all().filter(match=self, team=team)[1]
+        for team in self.blue_team.all():
+            report = RoundReport.objects.all().filter(match=self, team=team)[1]
             total_score += report.friendly_alliance_rank_points
             total_reports += 1
         return total_score/total_reports
-        
+
+
 class RoundReport(models.Model):
     team = models.ForeignKey(Team)
     match = models.ForeignKey(Match)
@@ -118,4 +121,3 @@ class RoundReport(models.Model):
 
     # Drive team ratings
     driveteam_maneuvering_skill = models.IntegerField(choices=functionality_choices, blank=True, null=True)
-

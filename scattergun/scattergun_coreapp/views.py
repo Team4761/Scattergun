@@ -23,6 +23,7 @@ def competition_select_view(request):
         form = CompetitionSelectForm()
     return render(request, "competition_select.html", context={"form": form})
 
+
 def roundreport_add_view(request):
     if request.method == "POST":
         form = RoundReportForm(None, request.POST)
