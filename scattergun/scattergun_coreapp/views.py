@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import TeamForm, RoundReportForm, CompetitionSelectForm, MatchForm, CompetitionForm
-from .models import Team, RoundReport
+from .models import Team, RoundReport, Competition
 
 
 def index_view(request):
@@ -22,6 +22,11 @@ def competition_add_view(request):
     else:
         form = CompetitionForm()
     return render(request, "simple_add_form_base.html", context={"form": form, "thing": "competition"})
+
+
+def competition_list_view(request):
+    comps = Competition.objects.all()
+    return render(request, "competition_list.html", context={"comps": comps})
 
 
 def competition_select_view(request):
