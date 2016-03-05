@@ -1,7 +1,11 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse, NoReverseMatch
 from django.test import Client, TestCase
 from .models import Team, RoundReport, Match, Competition
 import datetime
+import re
+import os
+
+TEST_PY_BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 class TeamTestCase(TestCase):
@@ -26,17 +30,6 @@ class TeamTestCase(TestCase):
         self.assertEqual(self.test_team_1.get_average_score(), 4.75)
 
 
-class TeamViewTestCase(TestCase):
-    def setUp(self):
-        self.views = ('scattergun-team-add', 'scattergun-team-list')
-        self.client = Client()
-
-    def test_team_views(self):
-        for view in self.views:
-            response = self.client.get(reverse(view))
-            self.assertEqual(response.status_code, 200)
-
-
 class RoundReportTestCase(TestCase):
     def setUp(self):
         Team.objects.create(name="Test Team 1", number=1)
@@ -51,34 +44,22 @@ class RoundReportTestCase(TestCase):
         r.save()
 
 
-class RoundReportViewTestCase(TestCase):
+class TestViews(TestCase):
     def setUp(self):
-        self.views = ('scattergun-roundreport-add', 'scattergun-roundreport-list')
+        self.views = []
+        with open(os.path.join(TEST_PY_BASE_DIR, "scattergun_coreapp", "urls.py")) as f:
+            for line in f.readlines():
+                if "'" in line:
+                    raise Exception("' character found in urls.py")
+                match = re.search(r'name="([A-Za-z-]+)"', line)
+                if match is not None:
+                    self.views.append(match.group(1))
         self.client = Client()
 
-    def test_roundreport_views(self):
+    def test_views(self):
         for view in self.views:
-            response = self.client.get(reverse(view))
-            self.assertEqual(response.status_code, 200)
-
-
-class LeaderBoardViewTestCase(TestCase):
-    def setUp(self):
-        self.views = ['scattergun-avg-score-leaderboard']
-        self.client = Client()
-
-    def test_leaderboard_views(self):
-        for view in self.views:
-            response = self.client.get(reverse(view))
-            self.assertEqual(response.status_code, 200)
-
-
-class MatchViewTestCase(TestCase):
-    def setUp(self):
-        self.views = ['scattergun-match-add']
-        self.client = Client()
-
-    def test_leaderboard_views(self):
-        for view in self.views:
-            response = self.client.get(reverse(view))
-            self.assertEqual(response.status_code, 200)
+            try:
+                response = self.client.get(reverse(view))
+                self.assertEqual(response.status_code, 200)
+            except NoReverseMatch:
+                pass
