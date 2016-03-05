@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import TeamForm, RoundReportForm, CompetitionSelectForm, MatchForm, CompetitionForm
-from .models import Team, RoundReport, Competition
+from .models import Team, RoundReport, Competition, Match
 
 
 def index_view(request):
@@ -21,7 +21,7 @@ def competition_add_view(request):
             return redirect('scattergun-index')
     else:
         form = CompetitionForm()
-    return render(request, "simple_add_form_base.html", context={"form": form, "thing": "competition"})
+    return render(request, "match_list.html", context={"form": form, "thing": "competition"})
 
 
 def competition_list_view(request):
@@ -48,7 +48,12 @@ def match_add_view(request):
             return redirect('scattergun-index')
     else:
         form = MatchForm()
-    return render(request, "simple_add_form_base.html", context={"form": form, "thing": "match"})
+    return render(request, "match_list.html", context={"form": form, "thing": "match"})
+
+
+def match_list_view(request):
+    matches = Match.objects.all()
+    return render(request, "match_list.html", context={"matches": matches})
 
 
 def roundreport_add_view(request):
@@ -80,7 +85,7 @@ def team_add_view(request):
             return redirect('scattergun-team-show', team_number=team.number)
     else:
         form = TeamForm()
-    return render(request, "simple_add_form_base.html", context={"form": form, "thing": "team"})
+    return render(request, "match_list.html", context={"form": form, "thing": "team"})
 
 
 def team_view(request, team_number):
