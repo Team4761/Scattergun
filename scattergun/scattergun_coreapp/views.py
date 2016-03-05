@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import TeamForm, RoundReportForm, CompetitionSelectForm
+from .forms import TeamForm, RoundReportForm
 from .models import Team, RoundReport
 
 
@@ -13,24 +13,14 @@ def avg_score_leaderboard_view(request):
     return render(request, "leaderboard.html", context={"teams": sort})
 
 
-def competition_select_view(request):
-    if request.method == "POST":
-        form = CompetitionSelectForm(request.POST)
-        if form.is_valid():
-            request.session["competition"] = form.cleaned_data["competition"]
-            return redirect('scattergun-roundreport-add')
-    else:
-        form = CompetitionSelectForm()
-    return render(request, "competition_select.html", context={"form": form})
-
 def roundreport_add_view(request):
     if request.method == "POST":
-        form = RoundReportForm(None, request.POST)
+        form = RoundReportForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('scattergun-roundreport-list')
     else:
-        form = RoundReportForm(request.session.get("competition"))
+        form = RoundReportForm()
     return render(request, "roundreport_add.html", context={"form": form})
 
 
@@ -58,4 +48,22 @@ def team_add_view(request):
 def team_view(request, team_number):
     team = get_object_or_404(Team, number=team_number)
     reports = RoundReport.objects.filter(team=team)
-    return render(request, "team.html", context={"team": team, "reports": reports})
+    
+    pointsdataset = {}
+    pointsdataset["name"] = team.number
+    pointsdataset["xy"] = []
+    comments = []
+    
+    for report in reports:
+        pointsdataset["xy"].append({'x':report.match_number, 'y':report.friendly_alliance_score})
+        if not report.tech_issues_comment == "":
+            comments.append(report.tech_issues_comment)
+    
+    pointsdataset["xy"] = sorted(pointsdataset["xy"], key=lambda score: score["x"])
+    
+    context = {"team": team,
+    "reports": reports,
+    "pointsdataset": [pointsdataset],
+    "comments": comments}
+    
+    return render(request, "team.html", context=context)

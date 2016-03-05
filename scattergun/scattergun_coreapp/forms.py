@@ -1,5 +1,5 @@
 from django.forms import ModelForm, Form, ModelChoiceField
-from .models import Team, RoundReport, Competition, Match
+from .models import Team, RoundReport, Competition
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Submit, Fieldset
 from crispy_forms.bootstrap import FormActions, TabHolder, Tab
@@ -11,38 +11,17 @@ class TeamForm(ModelForm):
         exclude = ()
 
 
-class CompetitionSelectForm(Form):
-    competition = ModelChoiceField(queryset = Competition.objects.all(), to_field_name = "name")
-    
-    def __init__(self, *args, **kwargs):
-        super(CompetitionSelectForm, self).__init__(*args, **kwargs)
-        self.helper = FormHelper()
-        self.helper.layout= Layout(
-            Fieldset(
-                "Current Competition",
-                "competition"
-                
-            ),
-            FormActions(
-                Submit('select', 'Select'),
-            )
-        )
-
-
 class RoundReportForm(ModelForm):
-    match = ModelChoiceField(queryset = Competition.objects.all(), to_field_name="number")
-    
-    def __init__(self, competition, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(RoundReportForm, self).__init__(*args, **kwargs)
-        if competition:
-            self.fields["match"].queryset = Match.objects.filter(competition=competition)
         self.helper = FormHelper()
         self.helper.layout = Layout(
             TabHolder(
                 Tab(
                     "Pre-Round Information",
                     "team",
-                    "match",
+                    "match_number",
+                    "competition",
                 ),
                 Tab(
                     "During-Round Information",

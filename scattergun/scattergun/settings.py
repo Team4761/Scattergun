@@ -132,6 +132,3 @@ print(os.path.join(BASE_DIR, "scattergun/static"))
 
 # Crispy-Forms
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
-
-# Data serialization
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
