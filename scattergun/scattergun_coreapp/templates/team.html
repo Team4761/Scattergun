@@ -1,4 +1,10 @@
 {% extends "base.html" %}
+{% block 'title' %} Team #{{ team.number }}: {{ team.name }} {% endblock %}
+{% block 'head' %}
+{% load staticfiles %}
+    <link rel="stylesheet" href="{% static 'bower_components/chartist/dist/chartist.min.css' %}" type="text/css"/>
+    <script src="{% static 'bower_components/chartist/dist/chartist.min.js' %}"></script>
+{% endblock %}
 
 {% block "body" %}
 
@@ -48,5 +54,49 @@
         </div>
     </div>
 </div>
+<div class="col-md-12">
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation"><a href="#combined" aria_controls="combined" data-toggle="tab">Combined</a></li>
+        <li role="presentation"><a href="#points" aria_controls="points" data-toggle="tab">Points</a></li>
+        <li role="presentation"><a href="#boulders" aria_controls="boulders" data-toggle="tab">Boulders</a></li>
+        <li role="presentation"><a href="#tower-climbing" aria_controls="tower-climbing" data-toggle="tab">Tower Climbing</a></li>
+        <li role="presentation"><a href="#penalties" aria_controls="penalties" data-toggle="tab">Penalties</a></li>
+        <li role="presentation"><a href="#performance" aria_controls="performance" data-toggle="tab">Performance Rating</a></li>
+        <li role="presentation"><a href="#comments" aria_controls="comments" data-toggle="tab">Tech Issue Comments</a></li>
+    </ul>
+    <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="combined">
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="points">
+            <div class='ct-chart ct-pefect-fourth' id='points'></div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="boulders">
+            <div class='ct-chart ct-pefect-fourth' id='boulders'></div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="tower-climbing">
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="penalties">
+            <div class='ct-chart ct-pefect-fourth' id='penalties'></div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="performance">
+            <div class='ct-chart ct-pefect-fourth' id='performance'></div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="comments">
+            {% for comment in comments %}
+            <div class = "well">
+                {{ comment }}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
 
+{% endblock %}
+
+{% block 'footer' %}
+<script>
+    $(function(){
+        {% include 'graph.js' with dataname="points" datasets=pointsdataset only%}
+    });
+</script>
 {% endblock %}
