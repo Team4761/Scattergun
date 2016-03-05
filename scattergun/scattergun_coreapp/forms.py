@@ -37,7 +37,7 @@ class CompetitionSelectForm(Form):
 class RoundReportForm(ModelForm):
     # match = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="number")
 
-    def __init__(self, competition, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(RoundReportForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(

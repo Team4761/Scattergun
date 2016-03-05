@@ -1,6 +1,7 @@
 from django.contrib import admin
 from .models import Team, RoundReport, Competition
 
+
 class TeamAdmin(admin.ModelAdmin):
     list_display = ('name', 'number')
 

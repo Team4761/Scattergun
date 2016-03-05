@@ -64,22 +64,23 @@ def team_add_view(request):
 def team_view(request, team_number):
     team = get_object_or_404(Team, number=team_number)
     reports = RoundReport.objects.filter(team=team)
-    
+
     pointsdataset = {}
     pointsdataset["name"] = team.number
     pointsdataset["xy"] = []
     comments = []
-    
+
     for report in reports:
-        pointsdataset["xy"].append({'x':report.match_number, 'y':report.friendly_alliance_score})
+        pointsdataset["xy"].append({'x': report.match_number, 'y': report.friendly_alliance_score})
         if not report.tech_issues_comment == "":
             comments.append(report.tech_issues_comment)
-    
+
     pointsdataset["xy"] = sorted(pointsdataset["xy"], key=lambda score: score["x"])
-    
-    context = {"team": team,
-    "reports": reports,
-    "pointsdataset": [pointsdataset],
-    "comments": comments}
-    
+
+    context = {}
+    context["team"] = team
+    context["reports"] = reports
+    context["pointsdataset"] = [pointsdataset]
+    context["comments"] = comments
+
     return render(request, "team.html", context=context)
