@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block "body" %}
+<div class="col-md-12">
+<h1>Competition List <small>Every competition tracked by Scattergun</small></h1>
+<table class="table table-hover">
+    <thead>
+        <th>Name</th>
+        <th>Date</th>
+    </thead>
+{% for comp in comps %}
+    <tr>
+        <td><a href="{% url 'scattergun-index' %}">{{ comp.name }}</a></td>
+        <td>{{ comp.date }}</td>
+    </tr>
+{% endfor %}
+</table>
+</div>
+{% endblock %}

@@ -5,14 +5,39 @@ from crispy_forms.layout import Layout, Submit, Fieldset
 from crispy_forms.bootstrap import FormActions, TabHolder, Tab
 
 
+class CompetitionForm(ModelForm):
+    class Meta:
+        model = Competition
+        exclude = ()
+
+
 class TeamForm(ModelForm):
     class Meta:
         model = Team
         exclude = ()
 
 
-class RoundReportForm(ModelForm):
+class CompetitionSelectForm(Form):
+    competition = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="name")
+
     def __init__(self, *args, **kwargs):
+        super(CompetitionSelectForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Fieldset(
+                "Current Competition",
+                "competition"
+            ),
+            FormActions(
+                Submit('select', 'Select'),
+            )
+        )
+
+
+class RoundReportForm(ModelForm):
+    # match = ModelChoiceField(queryset=Competition.objects.all(), to_field_name="number")
+
+    def __init__(self, competition, *args, **kwargs):
         super(RoundReportForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.layout = Layout(

@@ -11,7 +11,7 @@ class RoundReportAdmin(admin.ModelAdmin):
 
 class CompetitionAdmin(admin.ModelAdmin):
     list_display = ('date', 'name')
-    
+
 # Register your models here.
 admin.site.register(Team, TeamAdmin)
 admin.site.register(RoundReport, RoundReportAdmin)

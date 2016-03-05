@@ -22,19 +22,24 @@ class Team(models.Model):
         friendly_scores = [report.friendly_alliance_score for report in team_reports]
         if len(friendly_scores) == 0:
             return 0
-        return sum(friendly_scores)/float(len(friendly_scores))
-
-    def __str__(self):
-        return "#{} - {}".format(self.number, self.name)
+        return sum(friendly_scores) / float(len(friendly_scores))
 
     def lowbar_compatibility(self):
         if self.robot_height_in_inches is not None:
             return self.robot_height_in_inches < 16
-        
+
+    def __str__(self):
+        return "#{} - {}".format(self.number, self.name)
+
+
 class Competition(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=100)
-        
+
+    def __str__(self):
+        return "{} ({})".format(self.name, self.date)
+
+
 class RoundReport(models.Model):
     team = models.ForeignKey(Team)
     match_number = models.IntegerField()
