@@ -36,6 +36,9 @@ class Competition(models.Model):
     date = models.DateField()
     name = models.CharField(max_length=100)
 
+    def __str__(self):
+        return "{} ({})".format(self.name, self.date)
+
 
 class Match(models.Model):
     number = models.IntegerField()
@@ -78,6 +81,9 @@ class Match(models.Model):
             total_score += report.friendly_alliance_rank_points
             total_reports += 1
         return total_score/total_reports
+
+    def __str__(self):
+        return "Match #{} at {}".format(self.number, self.competition)
 
 
 class RoundReport(models.Model):
