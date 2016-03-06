@@ -82,3 +82,7 @@ class RoundReport(models.Model):
 
     # Drive team ratings
     driveteam_maneuvering_skill = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+
+    def __str__(self):
+        return "Match #{} in {} for {} (F:{}/E:{})".format(self.match_number, self.competition, self.team.name,
+                                                           self.friendly_alliance_score, self.enemy_alliance_score)
