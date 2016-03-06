@@ -1,5 +1,4 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.http import HttpResponse
 from .forms import TeamForm, RoundReportForm, CompetitionForm
 from .models import Team, RoundReport, Competition
 
