@@ -10,15 +10,15 @@ def index_view(request):
 def leaderboard_avg_score_view(request):
     teams = Team.objects.all()
     sort = sorted(teams, key=lambda team: -team.get_average_score())
-    return render(request, "avg_alliance_score_leaderboard.html", context={"teams": sort,
-                                                                           "thing": "Average alliance score"})
+    return render(request, "leaderboards/avg_alliance_score.html", context={"teams": sort,
+                                                                            "thing": "Average alliance score"})
 
 
 def leaderboard_max_low_boulders(request):
     teams = Team.objects.all()
     sort = sorted(teams, key=lambda team: -team.get_max_boulders_scored_low())
-    return render(request, "max_low_boulders_leaderboard.html", context={"teams": sort,
-                                                                         "thing": "Max boulders scored in low goal"})
+    return render(request, "leaderboards/max_low_boulders.html", context={"teams": sort,
+                                                                          "thing": "Max boulders scored in low goal"})
 
 
 def competition_add_view(request):
