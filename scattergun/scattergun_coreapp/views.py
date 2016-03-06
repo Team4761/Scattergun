@@ -86,9 +86,10 @@ def team_view(request, team_number):
     team = get_object_or_404(Team, number=team_number)
     reports = RoundReport.objects.filter(team=team)
 
-    pointsdataset = {}
-    pointsdataset["name"] = team.number
-    pointsdataset["xy"] = []
+    pointsdataset = {
+        "name": team.number,
+        "xy": [],
+    }
     comments = []
 
     for report in reports:
@@ -98,10 +99,11 @@ def team_view(request, team_number):
 
     pointsdataset["xy"] = sorted(pointsdataset["xy"], key=lambda score: score["x"])
 
-    context = {}
-    context["team"] = team
-    context["reports"] = reports
-    context["pointsdataset"] = [pointsdataset]
-    context["comments"] = comments
+    context = {
+        "team": team,
+        "reports": reports,
+        "pointsdataset": [pointsdataset],
+        "comments": comments,
+    }
 
     return render(request, "team.html", context=context)
