@@ -24,6 +24,13 @@ class Team(models.Model):
             return 0
         return sum(friendly_scores) / float(len(friendly_scores))
 
+    def get_max_boulders_scored_low(self):
+        team_reports = RoundReport.objects.filter(team=self)
+        low_goals = [report.boulders_scored_in_low for report in team_reports]
+        if len(low_goals) == 0:
+            return 0
+        return max(low_goals)
+
     def lowbar_compatibility(self):
         if self.robot_height_in_inches is not None:
             return self.robot_height_in_inches < 16
