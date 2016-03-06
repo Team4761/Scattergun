@@ -9,7 +9,7 @@
     </thead>
 {% for comp in comps %}
     <tr>
-        <td><a href="{% url 'scattergun-index' %}">{{ comp.name }}</a></td>
+        <td><a href="{% url 'scattergun-competition-show' comp_number=comp.pk %}">{{ comp.name }}</a></td>
         <td>{{ comp.date }}</td>
     </tr>
 {% endfor %}
