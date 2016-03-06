@@ -70,7 +70,7 @@ class RoundReport(models.Model):
     high_boulders_blocked = models.IntegerField(default=0)
     notes_about_defense = models.TextField(blank=True, null=True)
 
-    # Penalties recieved
+    # Penalties received
     foul_count = models.IntegerField(default=0)
     technical_foul_count = models.IntegerField(default=0)
     yellow_card_count = models.IntegerField(default=0)

@@ -61,6 +61,11 @@ def roundreport_list_view(request):
     return render(request, "roundreport_list.html", context={"reports": reports})
 
 
+def roundreport_show_view(request, report):
+    report = get_object_or_404(RoundReport, pk=report)
+    return render(request, "roundreport.html", context={"report": report})
+
+
 def team_list_view(request):
     teams = Team.objects.all()
     return render(request, "team_list.html", context={"teams": teams})

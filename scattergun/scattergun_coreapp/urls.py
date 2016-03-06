@@ -11,7 +11,8 @@ urlpatterns = [
         name="scattergun-max-low-boulders-leaderboard"),
 
     url(r"roundreports/add", views.roundreport_add_view, name="scattergun-roundreport-add"),
-    url(r"roundreports", views.roundreport_list_view, name="scattergun-roundreport-list"),
+    url(r"roundreports/$", views.roundreport_list_view, name="scattergun-roundreport-list"),
+    url(r"roundreports/(?P<report>\d+)", views.roundreport_show_view, name="scattergun-roundreport-show"),
 
     url(r"teams/$", views.team_list_view, name="scattergun-team-list"),
     url(r"teams/add/", views.team_add_view, name="scattergun-team-add"),

@@ -20,7 +20,7 @@
             <div class="panel-body">
                 <ul>
                     {% for report in reports %}
-                    <li><a href="#">{{ report }}</a></li>
+                    <li><a href="{% url 'scattergun-roundreport-show' report=report.pk %}">{{ report }}</a></li>
                     {% endfor %}
                 </ul>
             </div>

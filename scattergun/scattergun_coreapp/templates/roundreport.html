@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+{% block "body" %}
+<div class="col-md-12">
+    <h1>{{ report }}</h1>
+</div>
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">Round information</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Friendly alliance score</td>
+                    <td> {{ report.friendly_alliance_score }}</td>
+                </tr>
+                <tr>
+                    <td>Enemy alliance score</td>
+                    <td> {{ report.enemy_alliance_score }}</td>
+                </tr>
+                <tr>
+                    <td>Friendly alliance rank points</td>
+                    <td> {{ report.friendly_alliance_rank_points }}</td>
+                </tr>
+                <tr>
+                    <td>Enemy alliance Rank Points</td>
+                    <td> {{ report.enemy_alliance_rank_points }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Defense</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Low boulders blocked</td>
+                    <td> {{ report.low_boulders_blocked }}</td>
+                </tr>
+                <tr>
+                    <td>High boulders blocked</td>
+                    <td> {{ report.high_boulders_blocked }}</td>
+                </tr>
+                <tr>
+                    <td>Notes about defense</td>
+                    <td> {{ report.notes_about_defense }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+        <div class="panel panel-default">
+        <div class="panel-heading">Penalties received</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Foul count</td>
+                    <td> {{ report.foul_count }}</td>
+                </tr>
+                <tr>
+                    <td>Technical foul count</td>
+                    <td> {{ report.technical_foul_count }}</td>
+                </tr>
+                <tr>
+                    <td>Yellow card count</td>
+                    <td> {{ report.yellow_card_count }}</td>
+                </tr>
+                <tr>
+                    <td>Red card count</td>
+                    <td> {{ report.red_card_count }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="col-md-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">Point scoring activities</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Boulders scored in low goal</td>
+                    <td> {{ report.boulders_scored_in_low }}</td>
+                </tr>
+                <tr>
+                    <td>Boulders scored in high goal</td>
+                    <td> {{ report.boulders_scored_in_high }}</td>
+                </tr>
+                <tr>
+                    <td>Can it scale the tower?</td>
+                    <td> {{ report.can_scale_tower }}</td>
+                </tr>
+                <tr>
+                    <td>Tower scaling ability</td>
+                    <td> {{ report.tower_scaling_ability }}</td>
+                </tr>
+                <tr>
+                    <td>Tower scaling time (seconds)</td>
+                    <td> {{ report.tower_scaling_time }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Breakdown/Technical Issues</div>
+        <div class="panel-body">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Key</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tr>
+                    <td>Got stuck?</td>
+                    <td> {{ report.got_stuck }}</td>
+                </tr>
+                <tr>
+                    <td>Lost connection?</td>
+                    <td> {{ report.lost_connection }}</td>
+                </tr>
+                <tr>
+                    <td>Lost control?</td>
+                    <td> {{ report.lost_control }}</td>
+                </tr>
+                <tr>
+                    <td>Other comments</td>
+                    <td> {{ report.tech_issues_comment }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="panel panel-default">
+        <div class="panel-heading">Other</div>
+        <div class="panel-body">
+        </div>
+    </div>
+</div>
+{% endblock %}
