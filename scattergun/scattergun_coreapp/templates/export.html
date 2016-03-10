@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block "body" %}
+<div class="row">
+    <div class="col-md-4">
+        <h3>Round Reports</h3>
+        <div class="list-group">
+            <a href="{% url 'scattergun-export-roundreports' target='xlsx' %}" class="list-group-item" role="button">Excel Spreadsheet (.xlsx)</a>
+            <a href="{% url 'scattergun-export-roundreports' target='csv' %}" class="list-group-item" role="button">Comma-Separated Values (.csv)</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Teams</h3>
+        <div class="list-group">
+            <a href="{% url 'scattergun-export-teams' target='xlsx' %}" class="list-group-item" role="button">Excel Spreadsheet (.xlsx)</a>
+            <a href="{% url 'scattergun-export-teams' target='csv' %}" class="list-group-item" role="button">Comma-Separated Values (.csv)</a>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h3>Competitions</h3>
+        <div class="list-group">
+            <a href="{% url 'scattergun-export-competitions' target='xlsx' %}" class="list-group-item" role="button">Excel Spreadsheet (.xlsx)</a>
+            <a href="{% url 'scattergun-export-competitions' target='csv' %}" class="list-group-item" role="button">Comma-Separated Values (.csv)</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

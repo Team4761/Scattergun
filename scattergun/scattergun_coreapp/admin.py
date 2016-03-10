@@ -1,4 +1,5 @@
 from django.contrib import admin
+from import_export import resources
 from .models import Team, RoundReport, Competition
 
 
@@ -17,3 +18,18 @@ class CompetitionAdmin(admin.ModelAdmin):
 admin.site.register(Team, TeamAdmin)
 admin.site.register(RoundReport, RoundReportAdmin)
 admin.site.register(Competition, CompetitionAdmin)
+
+
+class RoundReportResource(resources.ModelResource):
+    class Meta:
+        model = RoundReport
+
+
+class TeamResource(resources.ModelResource):
+    class Meta:
+        model = Team
+
+
+class CompetitionResource(resources.ModelResource):
+    class Meta:
+        model = Competition

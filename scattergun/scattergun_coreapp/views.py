@@ -1,4 +1,6 @@
+from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+from .admin import RoundReportResource, TeamResource, CompetitionResource
 from .forms import TeamForm, RoundReportForm, CompetitionForm
 from .models import Team, RoundReport, Competition
 
@@ -107,3 +109,55 @@ def team_view(request, team_number):
     }
 
     return render(request, "team.html", context=context)
+
+
+def export_roundreport_view(request, target):
+    all = RoundReportResource().export()
+    content_type = None
+    data = None
+    print(target)
+    if target == "csv":
+        data = all.csv
+        content_type = "text/plain"
+    elif target == "xlsx":
+        data = all.xlsx
+        content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    else:
+        return HttpResponse("Unrecognized format", status=500)
+    return HttpResponse(data, content_type=content_type)
+
+
+def export_team_view(request, target):
+    all = TeamResource().export()
+    content_type = None
+    data = None
+    print(target)
+    if target == "csv":
+        data = all.csv
+        content_type = "text/plain"
+    elif target == "xlsx":
+        data = all.xlsx
+        content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    else:
+        return HttpResponse("Unrecognized format", status=500)
+    return HttpResponse(data, content_type=content_type)
+
+
+def export_competition_view(request, target):
+    all = CompetitionResource().export()
+    content_type = None
+    data = None
+    print(target)
+    if target == "csv":
+        data = all.csv
+        content_type = "text/plain"
+    elif target == "xlsx":
+        data = all.xlsx
+        content_type = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+    else:
+        return HttpResponse("Unrecognized format", status=500)
+    return HttpResponse(data, content_type=content_type)
+
+
+def export_index_view(request):
+    return render(request, "export.html")
