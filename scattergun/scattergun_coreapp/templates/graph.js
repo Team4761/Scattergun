@@ -6,11 +6,11 @@ datasets should be an array with each data entry looking like
     xy: {[x,y]}
 }
 {% endcomment %}
-var data = {
+var data{{ dataname }} = {
     series:[
     {% for data in datasets %}
     {
-        name: {{data.name}},
+        name: "{{data.name}}",
         data: [{% for xy in data.xy %}
             {x: {{ xy.x }}, y: {{ xy.y }}},
             {% endfor %}
@@ -20,11 +20,11 @@ var data = {
     ] 
 };
     
-var settings = {
+var settings{{ dataname }} = {
     lineSmooth: false,
     axisX: {
     type: Chartist.AutoScaleAxis,
     onlyInteger: true,}
 };
     
-new Chartist.Line('#{{dataname}}', data, settings);
+new Chartist.Line('#{{dataname}}', data{{ dataname }}, settings{{ dataname }});

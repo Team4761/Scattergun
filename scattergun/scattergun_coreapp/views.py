@@ -1,7 +1,7 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from .admin import RoundReportResource, TeamResource, CompetitionResource
-from .forms import TeamForm, RoundReportForm, CompetitionForm
+from .forms import TeamForm, RoundReportForm, CompetitionForm, CompetitionSelectForm
 from .models import Team, RoundReport, Competition
 
 
@@ -85,27 +85,65 @@ def team_add_view(request):
 
 
 def team_view(request, team_number):
-    team = get_object_or_404(Team, number=team_number)
-    reports = RoundReport.objects.filter(team=team)
+    competition = Competition.objects.latest('date') # Assume that competition we want to view is the latest one by default.
+    if request.method == "POST":
+        form = CompetitionSelectForm(request.POST)
+        if form.is_valid():
+            competition = form.cleaned_data["competition"]
 
-    pointsdataset = {
-        "name": team.number,
-        "xy": [],
-    }
+    form = CompetitionSelectForm()
+    team = get_object_or_404(Team, number=team_number)
+    reports = RoundReport.objects.filter(team=team, competition=competition)
+
     comments = []
 
+    pointsdataset = {
+        "color": "blue",
+        "name": "{0}_{1}".format(team.number, "points"),
+        "xy": [],
+    }
+    
+    rankdataset = {
+        "color": "blue",
+        "name": "{0}_{1}".format(team.number, "rank"),
+        "xy": [],
+    }
+    
+    boulder_dataset = [
+        {
+            "color": "light-blue",
+            "name": "{0}_{1}".format(team.number, "low"),
+            "xy": [],
+        },
+        {
+            "color": "blue",
+            "name": "{0}_{1}".format(team.number, "high"),
+            "xy": [],
+        },
+    ]
+    
     for report in reports:
         pointsdataset["xy"].append({'x': report.match_number, 'y': report.friendly_alliance_score})
+        rankdataset["xy"].append({'x': report.match_number, 'y': report.friendly_alliance_rank_points})
+        boulder_dataset[0]["xy"].append({'x': report.match_number, 'y': report.boulders_scored_in_low})
+        boulder_dataset[1]["xy"].append({'x': report.match_number, 'y': report.boulders_scored_in_high})
+        
         if not report.tech_issues_comment == "":
             comments.append(report.tech_issues_comment)
 
     pointsdataset["xy"] = sorted(pointsdataset["xy"], key=lambda score: score["x"])
+    rankdataset["xy"] = sorted(rankdataset["xy"], key=lambda score: score["x"])
+    boulder_dataset[0]["xy"] = sorted(boulder_dataset[0]["xy"], key=lambda score: score["x"])
+    boulder_dataset[1]["xy"] = sorted(boulder_dataset[1]["xy"], key=lambda score: score["x"])
 
     context = {
         "team": team,
         "reports": reports,
         "pointsdataset": [pointsdataset],
+        "rankdataset": [rankdataset],
+        "boulders": boulder_dataset,
         "comments": comments,
+        "form": form,
     }
 
     return render(request, "team.html", context=context)
