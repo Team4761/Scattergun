@@ -1,5 +1,5 @@
 lint:
-	flake8 . --max-line-length=200 --exclude="scattergun/*/migrations"
+	@echo No more linting!
 
 test:
 	cd scattergun && ./manage.py test

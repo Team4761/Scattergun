@@ -23,14 +23,11 @@ class CompetitionSelectForm(Form):
     def __init__(self, *args, **kwargs):
         super(CompetitionSelectForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_class = 'form-inline'
+        self.helper.field_template = 'bootstrap3/layout/inline_field.html'
         self.helper.layout = Layout(
-            Fieldset(
-                "Current Competition",
-                "competition"
-            ),
-            FormActions(
-                Submit('select', 'Select'),
-            )
+            "competition",
+            Submit('select', 'Select'),
         )
 
 

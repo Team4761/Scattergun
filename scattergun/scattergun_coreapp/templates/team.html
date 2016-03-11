@@ -4,13 +4,38 @@
 {% load staticfiles %}
     <link rel="stylesheet" href="{% static 'bower_components/chartist/dist/chartist.min.css' %}" type="text/css"/>
     <script src="{% static 'bower_components/chartist/dist/chartist.min.js' %}"></script>
+    <style>
+        .ct-series-a .ct-line,
+        .ct-series-a .ct-point {
+            stroke: blue;
+        }
+    
+        .ct-series-b .ct-line,
+        .ct-series-b .ct-point {
+            stroke: red;
+        }
+    
+        .ct-series-c .ct-line,
+        .ct-series-c .ct-point {
+            stroke: green;
+        }
+        
+        .ct-series-d .ct-line,
+        .ct-series-d .ct-point {
+            stroke: black;
+        }
+    </style>
 {% endblock %}
 
 {% block "body" %}
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-8">
         <h1>Team #{{ team.number }}: {{ team.name }} <small><a href="https://www.thebluealliance.com/team/{{ team.number }}" target="_blank">The Blue Alliance</a></small></h1>
+    </div>
+    <div class="col-md-4">
+        {% load crispy_forms_tags %}
+        {% crispy form %}
     </div>
 </div>
 <div class="row">
@@ -80,6 +105,7 @@
     <ul class="nav nav-tabs" role="tablist">
         <li role="presentation"><a href="#combined" aria_controls="combined" data-toggle="tab">Combined</a></li>
         <li role="presentation" class="active"><a href="#points" aria_controls="points" data-toggle="tab">Points</a></li>
+        <li role="presentation"><a href="#rank" aria_controls="rank" data-toggle="tab">Ranks Points</a></li>
         <li role="presentation"><a href="#boulders" aria_controls="boulders" data-toggle="tab">Boulders</a></li>
         <li role="presentation"><a href="#tower-climbing" aria_controls="tower-climbing" data-toggle="tab">Tower Climbing</a></li>
         <li role="presentation"><a href="#penalties" aria_controls="penalties" data-toggle="tab">Penalties</a></li>
@@ -91,6 +117,9 @@
         </div>
         <div role="tabpanel" class="tab-pane active" id="points">
             <div class='ct-chart ct-pefect-fourth' id='points'></div>
+        </div>
+        <div role="tabpanel" class="tab-pane active" id="rank">
+            <div class='ct-chart ct-pefect-fourth' id='rank'></div>
         </div>
         <div role="tabpanel" class="tab-pane active" id="boulders">
             <div class='ct-chart ct-pefect-fourth' id='boulders'></div>
@@ -119,6 +148,8 @@
 <script>
     $(function(){
         {% include 'graph.js' with dataname="points" datasets=pointsdataset only%}
+        {% include 'graph.js' with dataname="rank" datasets=rankdataset only%}
+        {% include 'graph.js' with dataname="boulders" datasets=boulders only %}
     });
 </script>
 {% endblock %}
