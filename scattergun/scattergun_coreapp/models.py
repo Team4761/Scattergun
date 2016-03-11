@@ -20,6 +20,7 @@ defenses = (
     ("Rough Terrain", "Rough Terrain")
 )
 
+
 class Team(models.Model):
     name = models.CharField(max_length=100)
     number = models.IntegerField(primary_key=True)
