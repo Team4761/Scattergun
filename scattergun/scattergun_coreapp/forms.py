@@ -47,14 +47,18 @@ class RoundReportForm(ModelForm):
                     "team",
                     "match_number",
                     "competition",
+                    "a_defense",
+                    "b_defense",
+                    "c_defense",
+                    "d_defense",
                 ),
                 Tab(
                     "During-Round Information",
 
-                    "friendly_alliance_score",
-                    "enemy_alliance_score",
-                    "friendly_alliance_rank_points",
-                    "enemy_alliance_rank_points",
+                    "a_defense_ability",
+                    "b_defense_ability",
+                    "c_defense_ability",
+                    "d_defense_ability",
 
                     "boulders_scored_in_low",
                     "boulders_scored_in_high",
@@ -68,6 +72,11 @@ class RoundReportForm(ModelForm):
                 ),
                 Tab(
                     "Post-Round Data",
+
+                    "friendly_alliance_score",
+                    "enemy_alliance_score",
+                    "friendly_alliance_rank_points",
+                    "enemy_alliance_rank_points",
 
                     "foul_count",
                     "technical_foul_count",

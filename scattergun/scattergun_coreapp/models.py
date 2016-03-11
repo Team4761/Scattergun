@@ -9,6 +9,16 @@ functionality_choices = (
     (5, "Fantastic"),
 )
 
+defenses = (
+    ("Portcullis", "Portcullis"),
+    ("Cheval de Frise", "Cheval de Frise"),
+    ("Ramparts", "Ramparts"),
+    ("Moats", "Moats"),
+    ("Drawbridge", "Drawbridge"),
+    ("Sally Port", "Sally Port"),
+    ("Rock Wall", "Rock Wall"),
+    ("Rough Terrain", "Rough Terrain")
+)
 
 class Team(models.Model):
     name = models.CharField(max_length=100)
@@ -89,6 +99,18 @@ class RoundReport(models.Model):
 
     # Drive team ratings
     driveteam_maneuvering_skill = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+
+    # Defenses
+    a_defense = models.CharField(max_length=15, choices=defenses, blank=True, null=True)
+    b_defense = models.CharField(max_length=15, choices=defenses, blank=True, null=True)
+    c_defense = models.CharField(max_length=15, choices=defenses, blank=True, null=True)
+    d_defense = models.CharField(max_length=15, choices=defenses, blank=True, null=True)
+
+    # Defense ability
+    a_defense_ability = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+    b_defense_ability = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+    c_defense_ability = models.IntegerField(choices=functionality_choices, blank=True, null=True)
+    d_defense_ability = models.IntegerField(choices=functionality_choices, blank=True, null=True)
 
     def __str__(self):
         return "Match #{} in {} for {} (F:{}/E:{})".format(self.match_number, self.competition, self.team.name,

@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
+import numpy
 from .admin import RoundReportResource, TeamResource, CompetitionResource
 from .forms import TeamForm, RoundReportForm, CompetitionForm
 from .models import Team, RoundReport, Competition
@@ -88,6 +89,17 @@ def team_view(request, team_number):
     team = get_object_or_404(Team, number=team_number)
     reports = RoundReport.objects.filter(team=team)
 
+    print([report["a_defense_ability"] for report in RoundReport.objects.filter(team=team, a_defense="Portcullis").values()])
+    abilities = {
+        "portcullis": numpy.mean([report["a_defense_ability"] for report in RoundReport.objects.filter(team=team, a_defense="Portcullis").values()]),
+        "cheval_de_frise": numpy.mean([report["a_defense_ability"] for report in RoundReport.objects.filter(team=team, a_defense="Cheval de Frise").values()]),
+        "ramparts": numpy.mean([report["b_defense_ability"] for report in RoundReport.objects.filter(team=team, b_defense="Ramparts").values()]),
+        "moats": numpy.mean([report["b_defense_ability"] for report in RoundReport.objects.filter(team=team, b_defense="Moats").values()]),
+        "drawbridge": numpy.mean([report["c_defense_ability"] for report in RoundReport.objects.filter(team=team, c_defense="Drawbridge").values()]),
+        "sally_port": numpy.mean([report["c_defense_ability"] for report in RoundReport.objects.filter(team=team, c_defense="Sally Port").values()]),
+        "rock_wall": numpy.mean([report["d_defense_ability"] for report in RoundReport.objects.filter(team=team, d_defense="Rock Wall").values()]),
+        "rough_terrain": numpy.mean([report["d_defense_ability"] for report in RoundReport.objects.filter(team=team, d_defense="Rough Terrain").values()]),
+    }
     pointsdataset = {
         "name": team.number,
         "xy": [],
@@ -106,6 +118,7 @@ def team_view(request, team_number):
         "reports": reports,
         "pointsdataset": [pointsdataset],
         "comments": comments,
+        "abilities": abilities,
     }
 
     return render(request, "team.html", context=context)
