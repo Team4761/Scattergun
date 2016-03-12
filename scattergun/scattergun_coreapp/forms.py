@@ -1,7 +1,7 @@
 from django.forms import ModelForm, Form, ModelChoiceField
 from .models import Team, RoundReport, Competition
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Submit, Fieldset
+from crispy_forms.layout import Layout, Submit, Fieldset, HTML
 from crispy_forms.bootstrap import FormActions, TabHolder, Tab
 
 
@@ -48,6 +48,9 @@ class RoundReportForm(ModelForm):
                     "b_defense",
                     "c_defense",
                     "d_defense",
+                    HTML(
+                        "{% load staticfiles %}<img width='100%' src={% static 'Periodic-Table-of-the-Defenses.png' %}></img>"
+                    ),
                 ),
                 Tab(
                     "During-Round Information",
